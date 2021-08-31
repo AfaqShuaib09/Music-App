@@ -1,0 +1,95 @@
+#: import ew kivy.uix.effectwidget
+
+<MusicScreen>:
+    EffectWidget:
+        effects: [ew.VerticalBlurEffect(size=10), ew.HorizontalBlurEffect(size=10)]
+        FitImage:
+            source : 'monkey.jpg'
+
+    MDBoxLayout:
+        orientation : 'vertical'
+        padding : ['10dp', '30dp', '10dp', '50dp']
+        SongCover :
+            id : sc
+            size : (250, 250)
+            size_hint : None, None
+            pos_hint : {'center_x':.5, 'center_y':.5}
+            #pos : '50px', '300px'
+            RotatingImage:
+                id : rt_img
+                angle : sc.angle
+                source : 'Music.jpg'
+                radius : [250, ]
+                
+        
+        Widget:
+            size_hint : None, None
+            height : '25dp'
+        Label:
+            id : name
+            text : "Song Name"
+            bold : True
+            font_size : '15dp'
+            size_hint_y : None
+            height : self.texture_size[1]
+        Label:
+            id :  artist
+            text : "Artist Name"
+            #color : '#000000'
+            size_hint_y : None
+            height : self.texture_size[1]
+        MDBoxLayout:
+            orientation : 'vertical'
+            Slider :
+                id : progress
+                color : [.7, 0, 0, 1]
+                min: 0
+                max : 100
+                value : 0
+                background_width : '20dp'
+                cursor_image : ''
+                cursor_size : ('10dp', '10dp')
+                value_track_color : (0,0,0,1)
+                value_track : True
+        MDBoxLayout:
+            pos_hint : {'center_x': .55}
+            MyIcon:
+                icon : 'restart'
+                on_press : sc.restart(progress)
+            MyIcon:
+                icon : 'skip-previous-outline'
+                on_press : sc.previous_song(progress, name, artist, rt_img)
+            MyIcon:
+                icon : 'skip-backward-outline'
+                on_press : sc.skip_ten_sec(progress)
+            MyIcon:
+                icon : 'play-outline'
+                on_press : sc.play(progress, name, artist, rt_img)
+            MyIcon:
+                icon : 'skip-forward'
+                on_press : sc.forward_ten_sec(progress)
+            MyIcon:
+                icon : 'skip-next-outline'
+                on_press : sc.next_song(progress, name, artist, rt_img)
+            
+
+            
+
+
+<MyIcon@MDIconButton>:
+    color : (.7, 0 ,0 ,1)
+    size_hint : None, None
+    user_font_size : '20dp'
+    theme_text_color : 'Custom'
+    size : ('20dp', '20dp')
+    text_color : [1,1,1,1]                
+    
+<RotatingImage@FitImage>:
+    angle : 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle : root.angle
+            origin : self.center
+    canvas.after:
+        PopMatrix
