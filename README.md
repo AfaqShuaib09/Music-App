@@ -10,4 +10,4 @@ Music Application designed using Python Library- Kivy
 ----
 
 
-<img align="center" src="https://github.com/AfaqShuaib09/Music-App/blob/main/preview.PNG" width="30%", height="50%">
+<img align="center" src="https://github.com/AfaqShuaib09/Music-App/blob/main/preview.PNG" width="30%" height="50%">
